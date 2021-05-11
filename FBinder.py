@@ -1,8 +1,12 @@
 import os
 import time
 import shutil
-
 from datetime import datetime
+
+date_files = {}
+date_folders = []
+list_of_files = []
+folder = ""
 
 
 def check_and_add(lst_to_check, thing):
@@ -27,13 +31,18 @@ def make_dir_from_lst(lst_of_names, place_of_folders):
             print("Chyba sie zagalopowales, bo taki folderek już istenieje!")
     return
 
+
 print("Hello in File Binder !")
-folder = r'D:\PROJEKTY\PYTHON\Segregator_Plikow\Testowe_zdjecia'
-# make date_folders where we store informations about files time of made
-date_files = {}
-date_folders = []
-# to variable list_of_files add list of files names
-list_of_files = os.listdir(folder)
+input_error = 0
+while input_error == 0:
+    input_error = 1
+    print(r"Example of link to folder: C:\Users\Dziki_ryk\Desktop\My_photos")
+    folder = input("Please, put here link to folder with your files! : ")
+    try:
+        list_of_files = os.listdir(folder)
+    except FileNotFoundError:
+        print("Problem with your folder address, please check and try again ")
+        input_error = 0
 # for the anyone part of list:
 for src in list_of_files:
     # here we join file name to fille address
@@ -60,3 +69,5 @@ for my_file in date_files:
     if os.path.isfile(full_src):
         dst = os.path.join(folder, date_files[my_file])
         shutil.move(full_src, dst)
+
+print("Done! Bye! <3")
