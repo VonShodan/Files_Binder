@@ -27,28 +27,27 @@ def make_dir_from_lst(lst_of_names, place_of_folders):
             print("Chyba sie zagalopowales, bo taki folderek już istenieje!")
     return
 
-print("Hello in Photo Segregate by Date'or !")
+print("Hello in File Binder !")
 folder = r'D:\PROJEKTY\PYTHON\Segregator_Plikow\Testowe_zdjecia'
-# Tworzymy date_folders która przechowuje dane na temat czasu utworzenia plikow
+# make date_folders where we store informations about files time of made
 date_files = {}
 date_folders = []
-# do zmiennej list_of_files wpajamy liste plików (typ list)
+# to variable list_of_files add list of files names
 list_of_files = os.listdir(folder)
-# dla kazdej cześci listy :
+# for the anyone part of list:
 for src in list_of_files:
-    # tutaj dodajemy do adresu folderu nazwę pliku, by miec pelny adres
+    # here we join file name to fille address
     full_src = os.path.join(folder, src)
     if os.path.isfile(full_src):
-        # time.ctime przelicza sekundy na %a %b %d %H:%M:%S %Y
+        # time.ctime converse seconds to %a %b %d %H:%M:%S %Y format
         date_of_birth_file = time.ctime(os.stat(full_src).st_mtime)
-        # tutaj tworzymy datetimeobjecta w typie datetime
+        # here we create datetimeobject in datetime type
         datetimeobject = datetime.strptime(date_of_birth_file, '%a %b %d %H:%M:%S %Y')
-        # konwertujemy na chciane :D
+        # converting to format what we need :D
         newformat = datetimeobject.strftime('%Y - %m')
         date_files[src] = newformat
-        # poniżej sprawdzamy, czy date_folders puste - jezeli tak to dodajemy
-        # newformat,
-        # jeszcze nizej sprawedzanie, czy nie ma newformata w date_folders
+        # below checking if date_folders is empty - if yes, we add newformat
+        # even lower checking, if value of newformat exist in date_folders
         if len(date_folders) == 0:
             date_folders.append(newformat)
         else:
